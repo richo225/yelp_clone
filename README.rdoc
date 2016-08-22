@@ -1,4 +1,5 @@
-== README
+Yelp clone
+==========
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -26,3 +27,16 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+User stories
+------------
+```
+As a restauranteur
+So that I can begin to market my restaurant to the public
+I want to be able to list my restaurant
+
+As a restauranteur
+So that I can persuade people to eat at my restaurant
+I want to be able to add a description to my listing
+
+```
