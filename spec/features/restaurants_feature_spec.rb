@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-feature "Viewing restaurants" do
-  scenario "Can vist the home page" do
-    visit '/restaurants'
-    expect(page).to have_content("Rats and Roaches")
+feature "restaurants" do
+  scenario "prompts to add a restaurant" do
+    visit "/restaurants"
+    expect(page).to have_content "No restaurants yet"
+    expect(page).to have_link "Add a restaurant"
   end
 
 end
