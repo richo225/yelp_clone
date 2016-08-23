@@ -22,13 +22,26 @@ feature "restaurants" do
   end
 
   context "creating restaurants" do
-    scenario "prompts user to fill in a form and displays the new restaurant" do
+
+    before do
       visit "/restaurants"
       click_link "Add a restaurant"
+    end
+    
+    scenario "prompts user to fill in a form and displays the new restaurant" do
       fill_in "Name", with: "KFC"
       click_button "Create Restaurant"
       expect(page).to have_content "KFC"
       expect(current_path).to eq "/restaurants"
+    end
+
+    context "an invalid restaurant" do
+      scenario "does not let you submit a name that is too short" do
+        fill_in 'Name', with: 'kf'
+        click_button 'Create Restaurant'
+        expect(page).not_to have_css 'h2', text: 'kf'
+        expect(page).to have_content 'error'
+      end
     end
   end
 
