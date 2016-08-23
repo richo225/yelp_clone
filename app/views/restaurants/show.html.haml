@@ -1,2 +1,6 @@
 %h1= @restaurant.name
 %p= @restaurant.description
+- @restaurant.reviews.each do |review|
+  %ul
+    %li= "Thoughts : #{review.thoughts}"
+    %li= "Rating: #{review.rating}"
