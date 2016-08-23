@@ -7,6 +7,8 @@ gem 'rails', '4.2.7.1'
 gem 'pg', '~> 0.15'
 # Devise for authentication
 gem 'devise'
+# Middleware for facebook_app_id
+gem 'omniauth-facebook'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
