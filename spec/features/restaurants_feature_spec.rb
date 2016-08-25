@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 feature 'restaurants' do
+
   context 'when there are no restaurants' do
     scenario 'should have a prompt to add a restaurant' do
       visit '/restaurants'
@@ -10,11 +11,9 @@ feature 'restaurants' do
   end
 
   context 'restaurants have been added' do
-    before do
-      Restaurant.create(name: 'KFC')
-    end
-
     scenario 'display restaurants' do
+      user = User.create!(email:"test@example.com", password: "testtest")
+      user.restaurants.create(name: 'KFC')
       visit '/restaurants'
       expect(page).to have_content('KFC')
       expect(page).not_to have_content('No restaurants yet')
@@ -56,7 +55,10 @@ feature 'restaurants' do
   end
 
   context 'view restaurants' do
-    let!(:kfc) { Restaurant.create(name: 'KFC') }
+    let!(:kfc) do
+      user = User.create!(email:"test@example.com", password: "testtest")
+      user.restaurants.create(name: 'KFC')
+    end
     scenario 'lets a user view a restaurant' do
       visit '/restaurants'
       click_link 'KFC'
@@ -66,23 +68,30 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants' do
-      before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
+    before do
+      user = User.create!(email:"test@example.com", password: "testtest")
+      user.restaurants.create(name: 'KFC', description: 'Deep fried goodness')
+    end
 
-      scenario 'lets a user edit a restaurant' do
-        sign_up
-        visit '/restaurants'
-        click_link 'Edit KFC'
-        fill_in 'Name', with: 'Kentucky Fried Chicken'
-        fill_in 'Description', with: 'Deep fried goodness'
-        click_button 'Update Restaurant'
-        expect(page).to have_content 'Kentucky Fried Chicken'
-        expect(page).to have_content 'Deep fried goodness'
-        expect(current_path).to eq '/restaurants'
-      end
+    scenario 'lets a user edit a restaurant' do
+      sign_up
+      visit '/restaurants'
+      click_link 'Edit KFC'
+      fill_in 'Name', with: 'Kentucky Fried Chicken'
+      fill_in 'Description', with: 'Deep fried goodness'
+      click_button 'Update Restaurant'
+      expect(page).to have_content 'Kentucky Fried Chicken'
+      expect(page).to have_content 'Deep fried goodness'
+      expect(current_path).to eq '/restaurants'  
+    end
   end
 
   context 'deleting restaurants' do
-    before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
+    before do
+      user = User.create!(email:"test@example.com", password: "testtest")
+      user.restaurants.create(name: 'KFC', description: 'Deep fried goodness')
+    end
+
     scenario 'removes a restaurant when user clicks delete link' do
       sign_up
       visit '/restaurants'
