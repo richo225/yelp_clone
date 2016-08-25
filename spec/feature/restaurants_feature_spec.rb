@@ -124,7 +124,7 @@ feature 'restaurants' do
       expect(page).to have_content 'Restaurant deleted successfully'
     end
 
-    xscenario "Logged in user can not delete restaurants which they have not created" do
+    scenario "Logged in user can not delete restaurants which they have not created" do
       sign_up
       visit '/restaurants'
       click_link 'Add a restaurant'

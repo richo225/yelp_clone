@@ -33,7 +33,7 @@ feature 'reviewing' do
     expect(page).to have_content('so so')
   end
 
-  xscenario 'Users can only leave one review per restaurant' do
+  scenario 'Users can only leave one review per restaurant' do
     sign_up
     visit '/restaurants'
     click_link 'Review KFC'
@@ -42,7 +42,11 @@ feature 'reviewing' do
     click_button 'Leave Review'
 
     expect(current_path).to eq '/restaurants'
-    expect(page).not_to have_content('Review KFC')
+    click_link 'Review KFC'
+    fill_in 'Thoughts', with: 'Great'
+    select '2', from: 'Rating'
+    click_button 'Leave Review'
+    expect(page).not_to have_content('Great')
   end
 
   xscenario 'Users can delete their own reviews' do
