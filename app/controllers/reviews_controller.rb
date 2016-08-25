@@ -7,8 +7,10 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    puts "Review_params: "
+    puts review_params
 
-    @restaurant = Restaurant.find (review_params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
     # @review = @restaurant.build_review review_params, current_user
     @review = @restaurant.reviews.build_with_user(review_params, current_user)
 
@@ -25,7 +27,7 @@ class ReviewsController < ApplicationController
       end
     end
 
-    redirect_to '/restaurants'
+    # redirect_to '/restaurants'
   end
 
 private
