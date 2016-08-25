@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  resources :restaurants do
+    resources :reviews
+  end
+
   root "restaurants#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -17,9 +22,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :restaurants do
-    resources :reviews
-  end
+
 
   # Example resource route with options:
   #   resources :products do

@@ -42,7 +42,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'haml'
-  gem 'dotenv-rails'
+  gem 'omniauth-facebook'
+  gem 'dotenv-rails', :require => 'dotenv/rails-now'
 end
 
 group :development do
