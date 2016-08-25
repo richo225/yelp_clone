@@ -18,14 +18,14 @@ def sign_up_as_user_2
   click_button('Sign up')
 end
 
-
 feature 'reviewing' do
   before { Restaurant.create name: 'KFC' }
 
   scenario 'allows users to leave a review using a form' do
+    sign_up
     visit '/restaurants'
     click_link 'Review KFC'
-    fill_in "Thoughts", with: "so so"
+    fill_in 'Thoughts', with: 'so so'
     select '3', from: 'Rating'
     click_button 'Leave Review'
 
@@ -33,25 +33,28 @@ feature 'reviewing' do
     expect(page).to have_content('so so')
   end
 
-  scenario 'Users can only leave one review per restaurant' do
+  xscenario 'Users can only leave one review per restaurant' do
     sign_up
     visit '/restaurants'
     click_link 'Review KFC'
-    fill_in "Thoughts", with: "so so"
+    fill_in 'Thoughts', with: 'so so'
     select '3', from: 'Rating'
     click_button 'Leave Review'
+
     expect(current_path).to eq '/restaurants'
     expect(page).not_to have_content('Review KFC')
   end
 
-  scenario 'Users can delete their own reviews' do
+  xscenario 'Users can delete their own reviews' do
     sign_up
     visit '/restaurants'
     click_link 'Review KFC'
-    fill_in "Thoughts", with: "so so"
+    fill_in 'Thoughts', with: 'so so'
     select '3', from: 'Rating'
+
     click_button 'Leave Review'
     expect(current_path).to eq '/restaurants'
+
     click_link 'Delete KFC review'
     expect(page).not_to have_content('so so')
   end
