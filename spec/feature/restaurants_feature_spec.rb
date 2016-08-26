@@ -26,6 +26,12 @@ def log_in
   click_button('Log in')
 end
 
+def create_restaurant
+  click_link 'Add a restaurant'
+  fill_in 'Name', with: 'KFC'
+  click_button 'Create Restaurant'
+end
+
 feature 'restaurants' do
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
@@ -86,11 +92,10 @@ feature 'restaurants' do
     end
   end
   context 'editing restaurants' do
-    before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
-
     scenario 'let a user edit a restaurant' do
       sign_up
       visit '/restaurants'
+      create_restaurant
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
       fill_in 'Description', with: 'Deep fried goodness'
@@ -100,7 +105,7 @@ feature 'restaurants' do
       expect(current_path).to eq '/restaurants'
     end
 
-    xscenario 'Logged in user can not edit restaurants which they have not created' do
+    scenario 'Logged in user can not edit restaurants which they have not created' do
       sign_up
       visit '/restaurants'
       click_link 'Add a restaurant'
@@ -114,17 +119,16 @@ feature 'restaurants' do
   end
 
   context 'deleting restaurants' do
-    before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
-
     scenario 'removes a restaurant when a user clicks a delete link' do
       sign_up
       visit '/restaurants'
+      create_restaurant
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
     end
 
-    scenario "Logged in user can not delete restaurants which they have not created" do
+    scenario 'Logged in user can not delete restaurants which they have not created' do
       sign_up
       visit '/restaurants'
       click_link 'Add a restaurant'

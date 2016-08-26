@@ -49,7 +49,7 @@ feature 'reviewing' do
     expect(page).not_to have_content('Great')
   end
 
-  xscenario 'Users can delete their own reviews' do
+  scenario 'Users can delete their own reviews' do
     sign_up
     visit '/restaurants'
     click_link 'Review KFC'
