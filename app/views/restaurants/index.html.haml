@@ -9,13 +9,15 @@
       = link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant)
       %br
       = link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete
-    
+
     %br
     = link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant)
     - restaurant.reviews.each do |review|
       %p= review.thoughts
       %p= review.rating
-    
+      = link_to "Delete #{restaurant.name} review", restaurant_review_path(restaurant, review) , method: :delete
+      -# "/restaurants/#{restaurant.id}/reviews/#{review.id}"
+
 - else
   %h1 No restaurants yet!
 
